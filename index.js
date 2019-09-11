@@ -3,9 +3,8 @@ var app = express();
 var data = new Date();
 
 var requestTime = function (req, res, next) {
-  var hour = data.getHours();
-  var min = data.getMinutes();
-  req.requestTime = ""+hour+":"+min;
+  var time = `${data.getHours()}:${("0" + data.getMinutes()).slice(-2)}`
+  req.requestTime = time;
   next();
 }
 
@@ -13,7 +12,7 @@ app.use(requestTime);
 
 app.get('/', function (req, res) {
   var responseText = 'Hello World';
-  responseText += ' ' + req.requestTime + '';
+  responseText += ' '+req.requestTime;
   res.send(responseText);
 });
 
